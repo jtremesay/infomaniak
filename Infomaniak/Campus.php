@@ -9,10 +9,10 @@ class Campus {
     protected $_city = "";
     protected $_region = "";
     protected $_capacity = 0;
+    protected $_students = array();
 
 
     public function __construct() {
-
     }
 
 
@@ -89,9 +89,63 @@ class Campus {
         }
 
         if ($capacity < 0) {
-            $capacity = 0;
+            throw new \InvalidArgumentException("New capacity should not be negative");
         }
 
-        $this->_capacity = (string) $capacity;
+
+        // TODO : on fait quoi si la nouvelle capacité est inférieure à
+        // l'occupation  actuelle du campus ?
+        // En attendant d'en savoir plus, on vire les étudiants en trop
+        $count = $this->count();
+        if ($count > $capacity) {
+            $this->_students = array_splice($this->_students, $capacity);
+        }
+
+        $this->_capacity = $capacity;
     }
+
+
+    /**
+     * Ajoute un étudiant au campus
+     *
+     * Ne fait rien si l'étudiant est déjà dans le campus.
+     *
+     */
+    public function addStudent(Student $student) {
+        // Pas la peine de re-ajouter un étudiant déjà dans le campus
+        if ($this->containsStudent($student)) {
+            return;
+        }
+
+
+        // Vérifie si il y a assez de place pour acceuillir l'étudiant
+        if ($this->_capacity === $this->count()) {
+            throw new FullCampusException();
+        }
+
+        $this->_students[] = $student;
+    }
+
+
+    /**
+     * Est-ce que le campus contient l'étudiant ?
+     *
+     * @param Student $student
+     * @return bool
+     */
+    public function containsStudent(Student $student) {
+        return in_array($student, $this->_students);
+    }
+
+
+    /**
+     * Le nombre d'étudiants dans le campus
+     *
+     * @return int
+     */
+    public function count() {
+        return count($this->_students);
+    }
+
+
 }
