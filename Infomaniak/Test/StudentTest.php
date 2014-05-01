@@ -5,15 +5,14 @@ namespace Infomaniak\Test;
 use Infomaniak\Student;
 
 class StudentTest extends \PHPUnit_Framework_TestCase {
-    public function testSetIdWithValidValues() {
-        $student = new Student();
-
-        for ($i = 10; $i >= -10; --$i) {
-            $student->setId($i);
-            if ($i != 0) {
-                $this->assertTrue($student->hasId());
+    public function testSetId() {
+        $object = new Student();
+        for ($id = 10; $id >= -10; --$id) {
+            $object->setId($id);
+            if ($id != 0) {
+                $this->assertTrue($object->hasId());
             } else {
-                $this->assertFalse($student->hasId());
+                $this->assertFalse($object->hasId());
             }
         }
     }
