@@ -123,16 +123,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
      * Des machins qui ne sont pas des strings
      */
     public function providerNotStrings() {
-        return array(
-            array(255),
-            array(0xff),
-            array(255.0),
-            array(true),
-            array(false),
-            array(null),
-            array(array()),
-            array(new \DateTime()),
-        );
+        return Helpers::providerNotStrings();
     }
 
 
@@ -140,14 +131,6 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
      * Des machins qui ne sont pas des entiers
      */
     public function providerNotInts() {
-        return array(
-            array("Zébulon"),
-            array(255.0),
-            array(true),
-            array(false),
-            array(null),
-            array(array()),
-            array(new \DateTime()),
-        );
+        return Helpers::providerNotInts();
     }
 }
