@@ -8,7 +8,7 @@ namespace Infomaniak;
  *
  * Une personne possède un nom, un prénom et un identifiant
  */
-class Student {
+class People {
     protected $_id = 0;
     protected $_firstName = "";
     protected $_lastName = "";
