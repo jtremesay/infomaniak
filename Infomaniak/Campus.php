@@ -103,6 +103,25 @@ class Campus {
     }
 
 
+    /**
+     * Est-ce que deux campus sont égaux ?
+     *
+     * @param Campus $other Le campus à comparer
+     * @return bool
+     */
+    public function isEquals(Campus $other) {
+        if ($this->getCity() != $other->getCity()) {
+            return false;
+        }
+
+        if ($this->getRegion() != $other->getRegion()) {
+            return false;
+        }
+
+        return true;
+    }
+
+
 
     //-------------------------------------------------------------------------
     // Gestion des étudiants

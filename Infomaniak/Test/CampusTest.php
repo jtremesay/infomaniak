@@ -99,6 +99,32 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    /**
+     * @dataProvider providerForIsEquals
+     */
+    public function testIsEquals($city1, $region1, $city2, $region2, $expected) {
+        $campus1 = new Campus();
+        $campus1->setCity($city1);
+        $campus1->setRegion($region1);
+
+        $campus2 = new Campus();
+        $campus2->setCity($city2);
+        $campus2->setRegion($region2);
+
+        $this->assertEquals($expected, $campus1->isEquals($campus2));
+    }
+
+
+    public function providerForIsEquals() {
+        return array(
+            array("Montpellier", "Hérault", "Montpellier", "Hérault", true),
+            array("Montpellier", "Hérault", "Béziers", "Hérault", false),
+            array("Montpellier", "Hérault", "Montpellier", "Gard", false),
+            array("Montpellier", "Hérault", "Béziers", "Gard", false),
+        );
+    }
+
+
     public function testAddStudent() {
         $student = new Student();
         $student->setFirstName("Anne");
