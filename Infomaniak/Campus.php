@@ -2,6 +2,7 @@
 
 namespace Infomaniak;
 
+
 /**
  * Un campus
  */
@@ -10,10 +11,6 @@ class Campus {
     protected $_region = "";
     protected $_capacity = 0;
     protected $_students = array();
-
-
-    public function __construct() {
-    }
 
 
     /**
@@ -133,13 +130,7 @@ class Campus {
      * @param Student $student Étudiant à supprimer
      */
     public function removeStudent(Student $student) {
-        $index = array_search($student, $this->_students);
-        if ($index !== false) {
-            $this->_students = array_merge(
-                array_slice($this->_students, $index+1),
-                array_slice($this->_students, 0, $index)
-            );
-        }
+        $this->_students = Helpers::array_remove($this->_students, $student);
     }
 
 
@@ -155,6 +146,15 @@ class Campus {
 
 
     /**
+     * Récupère une copie des étudiants du campus
+     * @return array[Student]
+     */
+    public function getStudents() {
+        return Helpers::array_clone($this->_students);
+    }
+
+
+    /**
      * Le nombre d'étudiants dans le campus
      *
      * @return int
@@ -162,6 +162,4 @@ class Campus {
     public function count() {
         return count($this->_students);
     }
-
-
 }

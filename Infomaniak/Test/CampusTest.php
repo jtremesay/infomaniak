@@ -211,6 +211,56 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    public function testGetStudents() {
+        $student1 = new Student();
+        $student1->setFirstName("Anne");
+        $student1->setLastName("Isette");
+
+        $student2 = new Student();
+        $student2->setFirstName("Paul");
+        $student2->setLastName("Auchon");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addStudent($student1);
+        $campus->addStudent($student2);
+
+        $students = $campus->getStudents();
+        $this->assertCount($campus->count(), $students);
+    }
+
+
+    public function testGetStudentsModifingStudent() {
+        $student = new Student();
+        $student->setFirstName("Anne");
+        $student->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addStudent($student);
+
+        $students = $campus->getStudents();
+        $studentClone = $students[0];
+        $studentClone->setFirstName("Sophie");
+        $this->assertNotEquals($student, $studentClone);
+    }
+
+
+    public function testGetStudentsModifingStudents() {
+        $student = new Student();
+        $student->setFirstName("Anne");
+        $student->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addStudent($student);
+
+        $students = $campus->getStudents();
+        unset($students[0]);
+
+        $this->assertEquals(1, $campus->count());
+    }
+
 
     //--------------------------------------------------------------------------
     // Providers
