@@ -302,18 +302,18 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testRemoveTeacherWhoDoesntExists() {
-        $teacher1 = new Student();
+        $teacher1 = new InternalTeacher();
         $teacher1->setFirstName("Anne");
         $teacher1->setLastName("Isette");
 
-        $teacher2 = new Student();
+        $teacher2 = new InternalTeacher();
         $teacher2->setFirstName("Paul");
         $teacher2->setLastName("Auchon");
 
         $campus = new Campus();
         $campus->setCapacity(10);
         $campus->addTeacher($teacher1);
-        $campus->removeTeacher($teacher);
+        $campus->removeTeacher($teacher2);
 
         $this->assertEquals(1, $campus->countTeachers());
     }
@@ -333,11 +333,11 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testTeacherExistsWhoDoesntExists() {
-        $teacher1 = new Student();
+        $teacher1 = new InternalTeacher();
         $teacher1->setFirstName("Anne");
         $teacher1->setLastName("Isette");
 
-        $teacher2 = new Student();
+        $teacher2 = new InternalTeacher();
         $teacher2->setFirstName("Paul");
         $teacher2->setLastName("Auchon");
 
@@ -345,9 +345,59 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
         $campus->setCapacity(10);
         $campus->addTeacher($teacher1);
 
-        $this->assertTrue($campus->teacherExists($teacher2));
+        $this->assertFalse($campus->teacherExists($teacher2));
     }
 
+
+    public function testGetTeachers() {
+        $teacher1 = new InternalTeacher();
+        $teacher1->setFirstName("Anne");
+        $teacher1->setLastName("Isette");
+
+        $teacher2 = new InternalTeacher();
+        $teacher2->setFirstName("Paul");
+        $teacher2->setLastName("Auchon");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addTeacher($teacher1);
+        $campus->addTeacher($teacher2);
+
+        $teachers = $campus->getTeachers();
+        $this->assertCount($campus->countTeachers(), $teachers);
+    }
+
+
+    public function testGetTeachersModifingTeacher() {
+        $teacher = new InternalTeacher();
+        $teacher->setFirstName("Anne");
+        $teacher->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addTeacher($teacher);
+
+        $teachers = $campus->getTeachers();
+        $teacherClone = $teachers[0];
+        $teacherClone->setFirstName("Sophie");
+        $this->assertNotEquals($teacher, $teacherClone);
+    }
+
+
+    public function testGetTeachersModifingTeachers() {
+        $teacher = new InternalTeacher();
+        $teacher->setFirstName("Anne");
+        $teacher->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addTeacher($teacher);
+
+        $teachers = $campus->getTeachers();
+        unset($teachers[0]);
+
+        $this->assertEquals(1, $campus->countTeachers());
+    }
 
 
     //--------------------------------------------------------------------------

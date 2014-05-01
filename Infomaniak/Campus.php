@@ -175,23 +175,57 @@ class Campus {
     // Gestion des professeurs
     //-------------------------------------------------------------------------
 
+
+    /**
+     * Ajoute un professeur au campus
+     *
+     * @param Teacher $teacher Le professeur à ajouter
+     */
     public function addTeacher(Teacher $teacher) {
+        if ($this->teacherExists($teacher)) {
+            return;
+        }
 
+        $this->_teachers[] = $teacher;
     }
 
+
+    /**
+     * Supprime un professeur du campus
+     *
+     * @param Teaches $teacher Le professeur à supprimer
+     */
     public function removeTeacher(Teacher $teacher) {
-
+        $this->_teachers = Helpers::array_remove($this->_teachers, $teacher);
     }
 
-    public function countTeachers(Teacher $teacher) {
 
+    /**
+     * Le nombre de professeurs dans le campus
+     *
+     * @return int
+     */
+    public function countTeachers() {
+        return count($this->_teachers);
     }
 
+
+    /**
+     * Est-ce qu'un professeur est dans le campus ?
+     *
+     * @param Teacher $teacher Le professeur dont il faut tester l'existance
+     * @return bool
+     */
     public function teacherExists(Teacher $teacher) {
-
+        return in_array($teacher, $this->_teachers);
     }
 
+    /**
+     * Récupère une copie des professeurs du campus
+     *
+     * return array[Teacher]
+     */
     public function getTeachers() {
-
+        return Helpers::array_clone($this->_teachers);
     }
 }
