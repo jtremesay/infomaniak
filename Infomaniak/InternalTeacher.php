@@ -5,7 +5,7 @@ namespace Infomaniak;
 /**
  * Un professeur interne au campus
  */
-class InternalTeacher extends AbstractTeacher {
+class InternalTeacher extends Teacher {
     static protected $_salary = 0;
 
     /**

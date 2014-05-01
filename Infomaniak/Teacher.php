@@ -5,7 +5,7 @@ namespace Infomaniak;
 /**
  * Un professeur
  */
-abstract class AbstractTeacher extends People {
+abstract class Teacher extends People {
     protected $_id = 0;
     protected $_firstName = "";
     protected $_lastName = "";
