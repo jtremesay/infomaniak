@@ -3,7 +3,7 @@
 namespace Infomaniak;
 
 /**
- * UN professeur externe au campus
+ * Un professeur externe au campus
  */
 class ExternalTeacher extends AbstractTeacher {
     protected $_salary = 0;
