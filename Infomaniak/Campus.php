@@ -128,6 +128,22 @@ class Campus {
 
 
     /**
+     * Supprime un étudiant du campus
+     *
+     * @param Student $student Étudiant à supprimer
+     */
+    public function removeStudent(Student $student) {
+        $index = array_search($student, $this->_students);
+        if ($index !== false) {
+            $this->_students = array_merge(
+                array_slice($this->_students, $index+1),
+                array_slice($this->_students, 0, $index)
+            );
+        }
+    }
+
+
+    /**
      * Est-ce que le campus contient l'étudiant ?
      *
      * @param Student $student

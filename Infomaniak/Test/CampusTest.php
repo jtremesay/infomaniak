@@ -161,6 +161,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($campus->containsStudent($student2));
     }
 
+
     public function testContainsStudentNotContain() {
         $student1 = new Student();
         $student1->setFirstName("Anne");
@@ -176,6 +177,40 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertFalse($campus->containsStudent($student2));
     }
+
+
+    public function testRemoveStudentWhoExits() {
+        $student = new Student();
+        $student->setFirstName("Anne");
+        $student->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(1);
+        $campus->addStudent($student);
+        $campus->removeStudent($student);
+
+        $this->assertEquals(0, $campus->count());
+    }
+
+
+    public function testRemoveStudentWhoDoesntExits() {
+        $student1 = new Student();
+        $student1->setFirstName("Anne");
+        $student1->setLastName("Isette");
+
+        $student2 = new Student();
+        $student2->setFirstName("Paul");
+        $student2->setLastName("Auchon");
+
+        $campus = new Campus();
+        $campus->setCapacity(1);
+        $campus->addStudent($student1);
+        $campus->removeStudent($student2);
+
+        $this->assertEquals(1, $campus->count());
+    }
+
+
 
     //--------------------------------------------------------------------------
     // Providers
