@@ -28,6 +28,9 @@ class ExternalTeacher extends Teacher {
             trigger_error('setSalary expected Argument $salary to be int', E_USER_WARNING);
         }
 
+        // TODO : que faire en cas de salaire négatif ?
+        // Lever une exception ou clamper ?
+
         $this->_salary = $salary;
     }
 }
