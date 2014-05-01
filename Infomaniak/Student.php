@@ -94,6 +94,6 @@ class Student {
             trigger_error('setLastName expected Argument $lastName to be string', E_USER_WARNING);
         }
 
-        $this->_firstName = $lastName;
+        $this->_lastName = $lastName;
     }
 }
