@@ -7,11 +7,6 @@ namespace Infomaniak;
  * Un étudiant
  */
 class Student extends People {
-    protected $_id = 0;
-    protected $_firstName = "";
-    protected $_lastName = "";
-
-
     /**
      * Est-ce que l'étudiant possède un identifiant ?
      *
