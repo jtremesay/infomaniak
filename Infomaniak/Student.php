@@ -17,4 +17,31 @@ class Student extends People {
     public function hasId() {
         return $this->getId() != 0;
     }
+
+
+    /**
+     * Compare deux étudiants
+     *
+     * Si valeur retournée = 0, les objets sons équivalents
+     * Si valeur retournée < 0, $this est plus petit
+     * Si valeur retournée > 0, $other plus petit
+     *
+     * @param Student $other L'étudiant à comparer
+     * @return int
+     */
+    public function compare(Student $other) {
+        if ($this->hasId()) {
+            if ($other->hasId()) {
+                return $this->getId() - $other->getId();
+            } else {
+                return 1;
+            }
+        } else {
+            if ($other->hasId()) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    }
 }

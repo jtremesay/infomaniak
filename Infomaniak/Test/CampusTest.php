@@ -260,6 +260,35 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    public function testGetStudentsSorted() {
+        $student1 = new Student();
+        $student1->setId(1);
+        $student1->setFirstName("Anne");
+        $student1->setLastName("Isette");
+
+        $student2 = new Student();
+        $student2->setId(0);
+        $student2->setFirstName("Paul");
+        $student2->setLastName("Auchon");
+
+        $student3 = new Student();
+        $student3->setId(-1);
+        $student3->setFirstName("Vincent");
+        $student3->setLastName("Time");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addStudent($student1);
+        $campus->addStudent($student2);
+        $campus->addStudent($student3);
+
+        $students = $campus->getStudents();
+        $this->assertEquals(0, $students[0]->getId());
+        $this->assertEquals(-1, $students[1]->getId());
+        $this->assertEquals(1, $students[2]->getId());
+    }
+
+
     public function testAddTeacher() {
         $teacher = new InternalTeacher();
         $teacher->setFirstName("Anne");

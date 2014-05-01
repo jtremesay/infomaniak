@@ -153,10 +153,18 @@ class Campus {
 
     /**
      * Récupère une copie des étudiants du campus
+     *
+     * Note : les étudiants sont triés par id croissant, les sans-id étant devant
+     *
      * @return array[Student]
      */
     public function getStudents() {
-        return Helpers::array_clone($this->_students);
+        $students = Helpers::array_clone($this->_students);
+        usort($students, function (Student $a, Student $b) {
+            return $a->compare($b);
+        });
+
+        return $students;
     }
 
 
