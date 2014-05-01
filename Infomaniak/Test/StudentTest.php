@@ -16,4 +16,34 @@ class StudentTest extends \PHPUnit_Framework_TestCase {
             }
         }
     }
+
+
+    /**
+     * @dataProvider providerForIsEquals
+     */
+    public function testIsEquals($id1, $firstname1, $lastname1, $id2, $firstname2, $lastname2, $expected) {
+        $student1 = new Student();
+        $student1->setId($id1);
+        $student1->setFirstName($firstname1);
+        $student1->setLastName($lastname1);
+
+        $student2 = new Student();
+        $student2->setId($id2);
+        $student2->setFirstName($firstname2);
+        $student2->setLastName($lastname2);
+
+        $this->assertEquals($expected, $student1->isEquals($student2));
+    }
+
+
+    public function providerForIsEquals() {
+        return array(
+            array(10, "Anne", "Isette", 11, "Paul", "Auchon", false),
+            array(10, "Anne", "Isette", 10, "Anne", "Isette", true),
+            array(0, "Anne", "Isette", 0, "Paul", "Auchon", false),
+            array(0, "Anne", "Isette", 0, "Anne", "Auchon", false),
+            array(0, "Anne", "Isette", 0, "Anne", "Isette", true),
+            array(10, "Anne", "Isette", 0, "Paul", "Auchon", false),
+        );
+    }
 }

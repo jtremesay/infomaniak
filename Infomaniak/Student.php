@@ -44,4 +44,35 @@ class Student extends People {
             }
         }
     }
+
+
+    /**
+     * Est-ce que deux étudiants sont égaux ?
+     *
+     * @param Student $other L'étudiant à comparer
+     * @return bool
+     */
+    public function isEquals(Student $other) {
+        $hasId1 = $this->hasId();
+        $hasId2 = $other->hasId();
+        if ($hasId1 && $hasId2) {
+            if ($this->getId() != $other->getId()) {
+                return false;
+            }
+
+            return true;
+        } else if (!$hasId1 && !$hasId2) {
+            if ($this->getFirstName() != $other->getFirstName()) {
+                return false;
+            }
+
+            if ($this->getLastName() != $other->getLastName()) {
+                return false;
+            }
+
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
