@@ -3,6 +3,7 @@
 namespace Infomaniak\Test;
 
 use Infomaniak\Campus;
+use Infomaniak\InternalTeacher;
 use Infomaniak\Student;
 use Infomaniak\FullCampusException;
 
@@ -111,6 +112,20 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    public function testAddStudentAlreadyAddedStudent() {
+        $student = new Student();
+        $student->setFirstName("Anne");
+        $student->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addStudent($student);
+        $campus->addStudent($student);
+
+        $this->assertEquals(1, $campus->countStudents());
+    }
+
+
     /**
      * @expectedException Infomaniak\FullCampusException
      */
@@ -130,7 +145,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
     }
 
 
-    public function testContainsStudentSearchByRef() {
+    public function testStudentExists() {
         $student = new Student();
         $student->setFirstName("Anne");
         $student->setLastName("Isette");
@@ -140,29 +155,12 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
         $campus->addStudent($student);
 
 
-        $this->assertTrue($campus->containsStudent($student));
+        $this->assertTrue($campus->studentsExists($student));
     }
 
 
-    public function testContainsStudentSearchByValue() {
-        $student1 = new Student();
-        $student1->setFirstName("Anne");
-        $student1->setLastName("Isette");
 
-        $student2 = new Student();
-        $student2->setFirstName("Anne");
-        $student2->setLastName("Isette");
-
-        $campus = new Campus();
-        $campus->setCapacity(1);
-        $campus->addStudent($student1);
-
-
-        $this->assertTrue($campus->containsStudent($student2));
-    }
-
-
-    public function testContainsStudentNotContain() {
+    public function testStudentExistsNotContain() {
         $student1 = new Student();
         $student1->setFirstName("Anne");
         $student1->setLastName("Isette");
@@ -175,7 +173,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
         $campus->setCapacity(1);
         $campus->addStudent($student1);
 
-        $this->assertFalse($campus->containsStudent($student2));
+        $this->assertFalse($campus->studentsExists($student2));
     }
 
 
@@ -260,6 +258,96 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertEquals(1, $campus->countStudents());
     }
+
+
+    public function testAddTeacher() {
+        $teacher = new InternalTeacher();
+        $teacher->setFirstName("Anne");
+        $teacher->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addTeacher($teacher);
+
+        $this->assertEquals(1, $campus->countTeachers());
+    }
+
+
+    public function testAddTeacherAlreadyAddedTeacher() {
+        $teacher = new InternalTeacher();
+        $teacher->setFirstName("Anne");
+        $teacher->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addTeacher($teacher);
+        $campus->addTeacher($teacher);
+
+        $this->assertEquals(1, $campus->countTeachers());
+    }
+
+
+    public function testRemoveTeacherWhoExists() {
+        $teacher = new InternalTeacher();
+        $teacher->setFirstName("Anne");
+        $teacher->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addTeacher($teacher);
+        $campus->removeTeacher($teacher);
+
+        $this->assertEquals(0, $campus->countTeachers());
+    }
+
+
+    public function testRemoveTeacherWhoDoesntExists() {
+        $teacher1 = new Student();
+        $teacher1->setFirstName("Anne");
+        $teacher1->setLastName("Isette");
+
+        $teacher2 = new Student();
+        $teacher2->setFirstName("Paul");
+        $teacher2->setLastName("Auchon");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addTeacher($teacher1);
+        $campus->removeTeacher($teacher);
+
+        $this->assertEquals(1, $campus->countTeachers());
+    }
+
+
+    public function testTeacherExistsWhoExists() {
+        $teacher = new InternalTeacher();
+        $teacher->setFirstName("Anne");
+        $teacher->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addTeacher($teacher);
+
+        $this->assertTrue($campus->teacherExists($teacher));
+    }
+
+
+    public function testTeacherExistsWhoDoesntExists() {
+        $teacher1 = new Student();
+        $teacher1->setFirstName("Anne");
+        $teacher1->setLastName("Isette");
+
+        $teacher2 = new Student();
+        $teacher2->setFirstName("Paul");
+        $teacher2->setLastName("Auchon");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addTeacher($teacher1);
+
+        $this->assertTrue($campus->teacherExists($teacher2));
+    }
+
 
 
     //--------------------------------------------------------------------------

@@ -103,6 +103,11 @@ class Campus {
     }
 
 
+
+    //-------------------------------------------------------------------------
+    // Gestion des étudiants
+    //-------------------------------------------------------------------------
+
     /**
      * Ajoute un étudiant au campus
      *
@@ -111,7 +116,7 @@ class Campus {
      */
     public function addStudent(Student $student) {
         // Pas la peine de re-ajouter un étudiant déjà dans le campus
-        if ($this->containsStudent($student)) {
+        if ($this->studentsExists($student)) {
             return;
         }
 
@@ -141,7 +146,7 @@ class Campus {
      * @param Student $student
      * @return bool
      */
-    public function containsStudent(Student $student) {
+    public function studentsExists(Student $student) {
         return in_array($student, $this->_students);
     }
 
@@ -162,5 +167,31 @@ class Campus {
      */
     public function countStudents() {
         return count($this->_students);
+    }
+
+
+
+    //-------------------------------------------------------------------------
+    // Gestion des professeurs
+    //-------------------------------------------------------------------------
+
+    public function addTeacher(Teacher $teacher) {
+
+    }
+
+    public function removeTeacher(Teacher $teacher) {
+
+    }
+
+    public function countTeachers(Teacher $teacher) {
+
+    }
+
+    public function teacherExists(Teacher $teacher) {
+
+    }
+
+    public function getTeachers() {
+
     }
 }
