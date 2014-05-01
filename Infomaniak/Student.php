@@ -2,6 +2,10 @@
 
 namespace Infomaniak;
 
+
+/**
+ * Un étudiant
+ */
 class Student {
     protected $_id = 0;
     protected $_firstName = "";
