@@ -94,7 +94,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
         $campus->addStudent($student2);
         $campus->setCapacity(1);
 
-        $this->assertEquals(1, $campus->count());
+        $this->assertEquals(1, $campus->countStudents());
     }
 
 
@@ -107,7 +107,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
         $campus->setCapacity(10);
         $campus->addStudent($student);
 
-        $this->assertEquals(1, $campus->count());
+        $this->assertEquals(1, $campus->countStudents());
     }
 
 
@@ -189,7 +189,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
         $campus->addStudent($student);
         $campus->removeStudent($student);
 
-        $this->assertEquals(0, $campus->count());
+        $this->assertEquals(0, $campus->countStudents());
     }
 
 
@@ -207,7 +207,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
         $campus->addStudent($student1);
         $campus->removeStudent($student2);
 
-        $this->assertEquals(1, $campus->count());
+        $this->assertEquals(1, $campus->countStudents());
     }
 
 
@@ -226,7 +226,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
         $campus->addStudent($student2);
 
         $students = $campus->getStudents();
-        $this->assertCount($campus->count(), $students);
+        $this->assertCount($campus->countStudents(), $students);
     }
 
 
@@ -258,7 +258,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
         $students = $campus->getStudents();
         unset($students[0]);
 
-        $this->assertEquals(1, $campus->count());
+        $this->assertEquals(1, $campus->countStudents());
     }
 
 

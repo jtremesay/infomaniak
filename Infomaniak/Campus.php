@@ -11,6 +11,7 @@ class Campus {
     protected $_region = "";
     protected $_capacity = 0;
     protected $_students = array();
+    protected $_teachers = array();
 
 
     /**
@@ -93,7 +94,7 @@ class Campus {
         // TODO : on fait quoi si la nouvelle capacité est inférieure à
         // l'occupation  actuelle du campus ?
         // En attendant d'en savoir plus, on vire les étudiants en trop
-        $count = $this->count();
+        $count = $this->countStudents();
         if ($count > $capacity) {
             $this->_students = array_splice($this->_students, $capacity);
         }
@@ -116,7 +117,7 @@ class Campus {
 
 
         // Vérifie si il y a assez de place pour acceuillir l'étudiant
-        if ($this->_capacity === $this->count()) {
+        if ($this->_capacity === $this->countStudents()) {
             throw new FullCampusException();
         }
 
@@ -159,7 +160,7 @@ class Campus {
      *
      * @return int
      */
-    public function count() {
+    public function countStudents() {
         return count($this->_students);
     }
 }
