@@ -3,15 +3,39 @@
 namespace Infomaniak\Test;
 
 use Infomaniak\Campus;
+use Infomaniak\Student;
+use Infomaniak\FullCampusException;
 
 class CampusTest extends \PHPUnit_Framework_TestCase {
+    public function testGetCity() {
+        $expected = "Montpellier";
+
+        $campus = new Campus();
+        $campus->setCity($expected);
+        $value = $campus->getCity();
+
+        $this->assertEquals($expected, $value);
+    }
+
+
     /**
      * @expectedException PHPUnit_Framework_Error
      * @dataProvider providerNotStrings
      */
     public function testSetCityWithNonStringValue($value) {
-        $object = new Campus();
-        $object->setCity($value);
+        $campus = new Campus();
+        $campus->setCity($value);
+    }
+
+
+    public function testGetRegion() {
+        $expected = "Hérault";
+
+        $campus = new Campus();
+        $campus->setRegion($expected);
+        $value = $campus->getRegion();
+
+        $this->assertEquals($expected, $value);
     }
 
 
@@ -25,31 +49,133 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
     }
 
 
+    public function testGetCapacity() {
+        $expected = 10;
+
+        $campus = new Campus();
+        $campus->setCapacity($expected);
+        $value = $campus->getCapacity();
+
+        $this->assertEquals($expected, $value);
+    }
+
+
     /**
      * @expectedException PHPUnit_Framework_Error
      * @dataProvider providerNotInts
      */
     public function testSetCapacityWithNonIntValue($value) {
-        $object = new Campus();
-        $object->setCapacity($value);
-    }
-
-
-    public function testSetCapacity() {
         $campus = new Campus();
-
-        for ($i = 10; $i >= -10; --$i) {
-            $campus->setCapacity($i);
-            $capacity = $campus->getCapacity();
-            if ($i > 0) {
-                $this->assertEquals($i, $capacity);
-            } else {
-                $this->assertEquals(0, $capacity);
-            }
-        }
+        $campus->setCapacity($value);
     }
 
 
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testSetCapacityWithNegativeValue () {
+        $campus = new Campus();
+        $campus->setCapacity(-10);
+    }
+
+
+    public function testSetCapacityToSmallestCapacityThanCurrentCount() {
+        $student1 = new Student();
+        $student1->setFirstName("Anne");
+        $student1->setLastName("Isette");
+
+        $student2 = new Student();
+        $student2->setFirstName("Paul");
+        $student2->setLastName("Auchon");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addStudent($student1);
+        $campus->addStudent($student2);
+        $campus->setCapacity(1);
+
+        $this->assertEquals(1, $campus->count());
+    }
+
+
+    public function testAddStudent() {
+        $student = new Student();
+        $student->setFirstName("Anne");
+        $student->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(10);
+        $campus->addStudent($student);
+
+        $this->assertEquals(1, $campus->count());
+    }
+
+
+    /**
+     * @expectedException Infomaniak\FullCampusException
+     */
+    public function testAddStudenToFullCampus() {
+        $student1 = new Student();
+        $student1->setFirstName("Anne");
+        $student1->setLastName("Isette");
+
+        $student2 = new Student();
+        $student2->setFirstName("Paul");
+        $student2->setLastName("Auchon");
+
+        $campus = new Campus();
+        $campus->setCapacity(1);
+        $campus->addStudent($student1);
+        $campus->addStudent($student2);
+    }
+
+
+    public function testContainsStudentSearchByRef() {
+        $student = new Student();
+        $student->setFirstName("Anne");
+        $student->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(1);
+        $campus->addStudent($student);
+
+
+        $this->assertTrue($campus->containsStudent($student));
+    }
+
+
+    public function testContainsStudentSearchByValue() {
+        $student1 = new Student();
+        $student1->setFirstName("Anne");
+        $student1->setLastName("Isette");
+
+        $student2 = new Student();
+        $student2->setFirstName("Anne");
+        $student2->setLastName("Isette");
+
+        $campus = new Campus();
+        $campus->setCapacity(1);
+        $campus->addStudent($student1);
+
+
+        $this->assertTrue($campus->containsStudent($student2));
+    }
+
+    public function testContainsStudentNotContain() {
+        $student1 = new Student();
+        $student1->setFirstName("Anne");
+        $student1->setLastName("Isette");
+
+        $student2 = new Student();
+        $student2->setFirstName("Paul");
+        $student2->setLastName("Auchon");
+
+        $campus = new Campus();
+        $campus->setCapacity(1);
+        $campus->addStudent($student1);
+
+        $this->assertFalse($campus->containsStudent($student2));
+    }
 
     //--------------------------------------------------------------------------
     // Providers
