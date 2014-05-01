@@ -74,7 +74,7 @@ class PeopleTest extends \PHPUnit_Framework_TestCase {
     /**
      * @dataProvider lastNameProviderValidValues
      */
-    public function testSetLastWithValidValues($expected) {
+    public function testSetLastNameWithValidValues($expected) {
         $people = new People();
 
         $people->setLastName($expected);
