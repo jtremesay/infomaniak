@@ -31,7 +31,7 @@ class People  implements \JsonSerializable {
      */
     public function setId($id) {
         if (!is_int($id)) {
-            trigger_error('setId expected Argument $id to be int', E_USER_WARNING);
+            throw new \InvalidArgumentException('setId expected Argument $id to be int');
         }
 
         $this->_id = $id;
@@ -41,7 +41,7 @@ class People  implements \JsonSerializable {
     /**
      * Récupère le prénom
      *
-     * @return string
+     * @return string Le prénom
      */
     public function getFirstName() {
         return $this->_firstName;
@@ -55,7 +55,7 @@ class People  implements \JsonSerializable {
      */
     public function setFirstName($firstName) {
         if (!is_string($firstName)) {
-            trigger_error('setFirstName expected Argument $firstName to be string', E_USER_WARNING);
+            throw new \InvalidArgumentException('setFirstName expected Argument $firstName to be string');
         }
 
         $this->_firstName = $firstName;
@@ -79,7 +79,7 @@ class People  implements \JsonSerializable {
      */
     public function setLastName($lastName) {
         if (!is_string($lastName)) {
-            trigger_error('setLastName expected Argument $lastName to be string', E_USER_WARNING);
+            throw new \InvalidArgumentException('setLastName expected Argument $lastName to be string');
         }
 
         $this->_lastName = $lastName;

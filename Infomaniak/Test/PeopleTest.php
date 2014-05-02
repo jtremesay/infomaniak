@@ -6,7 +6,7 @@ use Infomaniak\People;
 
 class PeopleTest extends \PHPUnit_Framework_TestCase {
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \InvalidArgumentException
      * @dataProvider providerNotInts
      */
     public function testSetIdWithNonIntValue($value) {
@@ -16,7 +16,7 @@ class PeopleTest extends \PHPUnit_Framework_TestCase {
 
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \InvalidArgumentException
      * @dataProvider providerNotStrings
      */
     public function testSetFirstNameWithNonStringValue($value) {
@@ -26,12 +26,37 @@ class PeopleTest extends \PHPUnit_Framework_TestCase {
 
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \InvalidArgumentException
      * @dataProvider providerNotStrings
      */
     public function testSetLastNameWithNonStringValue($value) {
         $object = new People();
         $object->setLastName($value);
+    }
+
+
+    /**
+     * @dataProvider providerForTestJsonSerialize
+     */
+    public function testJsonSerialize(People $people, $expected) {
+        $json = json_encode($people);
+        $this->assertEquals($expected, $json);
+    }
+
+
+    public function providerForTestJsonSerialize() {
+        $data = array();
+
+        $people = new People();
+        $people->setId(4);
+        $people->setFirstName("Harry");
+        $people->setLastName("Vancouvan");
+        $data[] = array(
+            $people,
+            '{"id":4,"firstname":"Harry","lastname":"Vancouvan"}'
+        );
+
+        return $data;
     }
 
 
