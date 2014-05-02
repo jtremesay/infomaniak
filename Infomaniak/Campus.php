@@ -6,7 +6,7 @@ namespace Infomaniak;
 /**
  * Un campus
  */
-class Campus {
+class Campus implements \JsonSerializable {
     protected $_city = "";
     protected $_region = "";
     protected $_capacity = 0;
@@ -254,5 +254,21 @@ class Campus {
      */
     public function getTeachers() {
         return Helpers::array_clone($this->_teachers);
+    }
+
+
+
+    //--------------------------------------------------------------------------
+    // JsonSerializable
+    //--------------------------------------------------------------------------
+    public function jsonSerialize() {
+        $data = array();
+        $data['city'] = $this->getCity();
+        $data['region'] = $this->getRegion();
+        $data['capacity'] = $this->getCapacity();
+        $data['students'] = $this->getStudents();
+        $data['teachers'] = $this->getTeachers();
+
+        return $data;
     }
 }

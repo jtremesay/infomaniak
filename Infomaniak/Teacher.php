@@ -25,4 +25,16 @@ abstract class Teacher extends People {
      * @param int $salary
      */
     abstract public function setSalary($salary);
+
+
+
+    //--------------------------------------------------------------------------
+    // JsonSerializable
+    //--------------------------------------------------------------------------
+    public function jsonSerialize() {
+        $data = parent::jsonSerialize();
+        $data['salary'] = $this->getSalary();
+
+        return $data;
+    }
 }

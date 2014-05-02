@@ -8,7 +8,7 @@ namespace Infomaniak;
  *
  * Une personne possède un nom, un prénom et un identifiant
  */
-class People {
+class People  implements \JsonSerializable {
     protected $_id = 0;
     protected $_firstName = "";
     protected $_lastName = "";
@@ -83,5 +83,19 @@ class People {
         }
 
         $this->_lastName = $lastName;
+    }
+
+
+
+    //--------------------------------------------------------------------------
+    // JsonSerializable
+    //--------------------------------------------------------------------------
+    public function jsonSerialize() {
+        $data = array();
+        $data['id'] = $this->getId();
+        $data['firstname'] = $this->getFirstName();
+        $data['lastname'] = $this->getLastName();
+
+        return $data;
     }
 }

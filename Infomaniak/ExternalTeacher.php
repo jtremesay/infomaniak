@@ -33,4 +33,16 @@ class ExternalTeacher extends Teacher {
 
         $this->_salary = $salary;
     }
+
+
+
+    //--------------------------------------------------------------------------
+    // JsonSerializable
+    //--------------------------------------------------------------------------
+    public function jsonSerialize() {
+        $data = parent::jsonSerialize();
+        $data['type'] = "external";
+
+        return $data;
+    }
 }

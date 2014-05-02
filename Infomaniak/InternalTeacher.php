@@ -35,4 +35,16 @@ class InternalTeacher extends Teacher {
 
         static::$_salary = $salary;
     }
+
+
+
+    //--------------------------------------------------------------------------
+    // JsonSerializable
+    //--------------------------------------------------------------------------
+    public function jsonSerialize() {
+        $data = parent::jsonSerialize();
+        $data['type'] = "internal";
+
+        return $data;
+    }
 }

@@ -133,3 +133,7 @@ foreach ($teachers2 as $teacher) {
                  $teacher->getId(),
                  $teacher->getSalary());
 }
+
+
+echo "Export des données\n";
+echo json_encode($campus, JSON_PRETTY_PRINT);

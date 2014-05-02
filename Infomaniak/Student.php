@@ -75,4 +75,16 @@ class Student extends People {
             return false;
         }
     }
+
+
+
+    //--------------------------------------------------------------------------
+    // JsonSerializable
+    //--------------------------------------------------------------------------
+    public function jsonSerialize() {
+        $data = parent::jsonSerialize();
+        $data['has_id'] = $this->hasId();
+
+        return $data;
+    }
 }
