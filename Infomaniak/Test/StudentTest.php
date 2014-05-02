@@ -46,4 +46,26 @@ class StudentTest extends \PHPUnit_Framework_TestCase {
             array(10, "Anne", "Isette", 0, "Paul", "Auchon", false),
         );
     }
+
+
+    /**
+     * @dataProvider providerForTestJsonSerialize
+     */
+    public function testJsonSerialize($id, $firstname, $lastname, $expected) {
+        $student = new Student();
+        $student->setId($id);
+        $student->setFirstName($firstname);
+        $student->setLastName($lastname);
+
+        $json = json_encode($student);
+        $this->assertEquals($expected, $json);
+    }
+
+
+    public function providerForTestJsonSerialize() {
+        return array(
+            array(0, 'Paul', 'Auchon', '{"id":0,"firstname":"Paul","lastname":"Auchon","has_id":false}'),
+            array(1, 'Anne', 'Isette', '{"id":1,"firstname":"Anne","lastname":"Isette","has_id":true}'),
+        );
+    }
 }
