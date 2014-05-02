@@ -25,7 +25,7 @@ class ExternalTeacher extends Teacher {
      */
     public function setSalary($salary) {
         if (!is_int($salary)) {
-            trigger_error('setSalary expected Argument $salary to be int', E_USER_WARNING);
+            throw new \InvalidArgumentException('setSalary expected Argument $salary to be int');
         }
 
         // TODO : que faire en cas de salaire négatif ?
