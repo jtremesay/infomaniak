@@ -6,7 +6,7 @@ use Infomaniak\InternalTeacher;
 
 class InternalTeacherTest extends \PHPUnit_Framework_TestCase {
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \InvalidArgumentException
      * @dataProvider providerNotInts
      */
     public function testSetSalaryWithNonIntValue($value) {
@@ -31,6 +31,28 @@ class InternalTeacherTest extends \PHPUnit_Framework_TestCase {
         // Vérifie que le salaire s'est propagé au troisième prof
         $object3 = new InternalTeacher();
         $this->assertEquals($salary, $object3->getSalary());
+    }
+
+
+    /**
+     * @dataProvider providerForTestJsonSerialize
+     */
+    public function testJsonSerialize($id, $firstname, $lastname, $salary, $expected) {
+        $teacher = new InternalTeacher();
+        $teacher->setId($id);
+        $teacher->setFirstName($firstname);
+        $teacher->setLastName($lastname);
+        $teacher->setSalary($salary);
+
+        $json = json_encode($teacher);
+        $this->assertEquals($expected, $json);
+    }
+
+
+    public function providerForTestJsonSerialize() {
+        return array(
+            array(0, 'Paul', 'Auchon', 5000, '{"id":0,"firstname":"Paul","lastname":"Auchon","salary":5000,"type":"internal"}'),
+        );
     }
 
 
