@@ -31,7 +31,7 @@ class Campus implements \JsonSerializable {
      */
     public function setCity($city) {
         if (!is_string($city)) {
-            trigger_error('setCity expected Argument $city to be string', E_USER_WARNING);
+            throw new \InvalidArgumentException('setCity expected Argument $city to be string');
         }
 
         $this->_city = $city;
@@ -55,7 +55,7 @@ class Campus implements \JsonSerializable {
      */
     public function setRegion($region) {
         if (!is_string($region)) {
-            trigger_error('setRegion expected Argument $region to be string', E_USER_WARNING);
+            throw new \InvalidArgumentException('setRegion expected Argument $region to be string');
         }
 
         $this->_region = $region;
@@ -83,7 +83,7 @@ class Campus implements \JsonSerializable {
      */
     public function setCapacity($capacity) {
         if (!is_int($capacity)) {
-            trigger_error('setCapacity expected Argument $capacity to be int', E_USER_WARNING);
+            throw new \InvalidArgumentException('setCapacity expected Argument $capacity to be int');
         }
 
         if ($capacity < 0) {

@@ -3,6 +3,7 @@
 namespace Infomaniak\Test;
 
 use Infomaniak\Campus;
+use Infomaniak\ExternalTeacher;
 use Infomaniak\InternalTeacher;
 use Infomaniak\Student;
 use Infomaniak\FullCampusException;
@@ -20,7 +21,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
 
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \InvalidArgumentException
      * @dataProvider providerNotStrings
      */
     public function testSetCityWithNonStringValue($value) {
@@ -41,7 +42,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
 
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \InvalidArgumentException
      * @dataProvider providerNotStrings
      */
     public function testSetRegionWithNonStringValue($value) {
@@ -62,7 +63,7 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
 
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \InvalidArgumentException
      * @dataProvider providerNotInts
      */
     public function testSetCapacityWithNonIntValue($value) {
@@ -452,6 +453,53 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
         unset($teachers[0]);
 
         $this->assertEquals(1, $campus->countTeachers());
+    }
+
+
+    public function testJsonSerialize() {
+        $campus = new Campus();
+        $campus->setCapacity(3);
+        $campus->setCity("Montpellier");
+        $campus->setRegion("Hérault");
+
+        $student2 = new Student();
+        $student2->setId(-1);
+        $student2->setFirstName("Robin");
+        $student2->setLastName("Trépide");
+        $campus->addStudent($student2);
+
+        $student3 = new Student();
+        $student3->setId(0);
+        $student3->setFirstName("Paul");
+        $student3->setLastName("Auchon");
+        $campus->addStudent($student3);
+
+
+        $teacher2 = new ExternalTeacher();
+        $teacher2->setId(2);
+        $teacher2->setFirstName("Gaspard");
+        $teacher2->setLastName("Alyzan");
+        $teacher2->setSalary(1500);
+        $campus->addTeacher($teacher2);
+
+        $teacher3 = new InternalTeacher();
+        $teacher3->setId(3);
+        $teacher3->setFirstName("Pacôme");
+        $teacher3->setLastName("Dabitude");
+        $teacher3->setSalary(2000);
+        $campus->addTeacher($teacher3);
+
+        $teacher4 = new InternalTeacher();
+        $teacher4->setId(4);
+        $teacher4->setFirstName("Harry");
+        $teacher4->setLastName("Vancouvan");
+        $teacher4->setSalary(2500);
+        $campus->addTeacher($teacher4);
+
+        $expected = '{"city":"Montpellier","region":"H\u00e9rault","capacity":3,"students":[{"id":0,"firstname":"Paul","lastname":"Auchon","has_id":false},{"id":-1,"firstname":"Robin","lastname":"Tr\u00e9pide","has_id":true}],"teachers":[{"id":2,"firstname":"Gaspard","lastname":"Alyzan","salary":1500,"type":"external"},{"id":3,"firstname":"Pac\u00f4me","lastname":"Dabitude","salary":2500,"type":"internal"},{"id":4,"firstname":"Harry","lastname":"Vancouvan","salary":2500,"type":"internal"}]}';
+
+        $json = json_encode($campus);
+        $this->assertEquals($expected, $json);
     }
 
 
