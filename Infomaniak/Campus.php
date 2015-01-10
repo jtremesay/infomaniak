@@ -10,8 +10,8 @@ class Campus implements \JsonSerializable {
     protected $_city = "";
     protected $_region = "";
     protected $_capacity = 0;
-    protected $_students = array();
-    protected $_teachers = array();
+    protected $_students = [];
+    protected $_teachers = [];
 
 
     /**
@@ -262,7 +262,7 @@ class Campus implements \JsonSerializable {
     // JsonSerializable
     //--------------------------------------------------------------------------
     public function jsonSerialize() {
-        $data = array();
+        $data = [];
         $data['city'] = $this->getCity();
         $data['region'] = $this->getRegion();
         $data['capacity'] = $this->getCapacity();
