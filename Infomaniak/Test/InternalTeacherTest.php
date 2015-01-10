@@ -50,9 +50,9 @@ class InternalTeacherTest extends \PHPUnit_Framework_TestCase {
 
 
     public function providerForTestJsonSerialize() {
-        return array(
-            array(0, 'Paul', 'Auchon', 5000, '{"id":0,"firstname":"Paul","lastname":"Auchon","salary":5000,"type":"internal"}'),
-        );
+        return [
+            [0, 'Paul', 'Auchon', 5000, '{"id":0,"firstname":"Paul","lastname":"Auchon","salary":5000,"type":"internal"}'],
+        ];
     }
 
 

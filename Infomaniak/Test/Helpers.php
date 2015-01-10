@@ -7,30 +7,30 @@ class Helpers {
      * Des machins qui ne sont pas des strings
      */
     static public function providerNotStrings() {
-        return array(
-            array(255),
-            array(0xff),
-            array(255.0),
-            array(true),
-            array(false),
-            array(null),
-            array(array()),
-            array(new \DateTime()),
-        );
+        return [
+            [255],
+            [0xff],
+            [255.0],
+            [true],
+            [false],
+            [null],
+            [[]],
+            [new \DateTime()],
+        ];
     }
 
     /**
      * Des machins qui ne sont pas des entiers
      */
     static public function providerNotInts() {
-        return array(
-            array("Zébulon"),
-            array(255.0),
-            array(true),
-            array(false),
-            array(null),
-            array(array()),
-            array(new \DateTime()),
-        );
+        return [
+            ["Zébulon"],
+            [255.0],
+            [true],
+            [false],
+            [null],
+            [[]],
+            [new \DateTime()],
+        ];
     }
 }

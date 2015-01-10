@@ -91,7 +91,7 @@ class People  implements \JsonSerializable {
     // JsonSerializable
     //--------------------------------------------------------------------------
     public function jsonSerialize() {
-        $data = array();
+        $data = [];
         $data['id'] = $this->getId();
         $data['firstname'] = $this->getFirstName();
         $data['lastname'] = $this->getLastName();

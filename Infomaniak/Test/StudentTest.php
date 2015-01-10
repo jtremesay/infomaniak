@@ -37,14 +37,14 @@ class StudentTest extends \PHPUnit_Framework_TestCase {
 
 
     public function providerForIsEquals() {
-        return array(
-            array(10, "Anne", "Isette", 11, "Paul", "Auchon", false),
-            array(10, "Anne", "Isette", 10, "Anne", "Isette", true),
-            array(0, "Anne", "Isette", 0, "Paul", "Auchon", false),
-            array(0, "Anne", "Isette", 0, "Anne", "Auchon", false),
-            array(0, "Anne", "Isette", 0, "Anne", "Isette", true),
-            array(10, "Anne", "Isette", 0, "Paul", "Auchon", false),
-        );
+        return [
+            [10, "Anne", "Isette", 11, "Paul", "Auchon", false],
+            [10, "Anne", "Isette", 10, "Anne", "Isette", true],
+            [0, "Anne", "Isette", 0, "Paul", "Auchon", false],
+            [0, "Anne", "Isette", 0, "Anne", "Auchon", false],
+            [0, "Anne", "Isette", 0, "Anne", "Isette", true],
+            [10, "Anne", "Isette", 0, "Paul", "Auchon", false],
+        ];
     }
 
 
@@ -63,9 +63,9 @@ class StudentTest extends \PHPUnit_Framework_TestCase {
 
 
     public function providerForTestJsonSerialize() {
-        return array(
-            array(0, 'Paul', 'Auchon', '{"id":0,"firstname":"Paul","lastname":"Auchon","has_id":false}'),
-            array(1, 'Anne', 'Isette', '{"id":1,"firstname":"Anne","lastname":"Isette","has_id":true}'),
-        );
+        return [
+            [0, 'Paul', 'Auchon', '{"id":0,"firstname":"Paul","lastname":"Auchon","has_id":false}'],
+            [1, 'Anne', 'Isette', '{"id":1,"firstname":"Anne","lastname":"Isette","has_id":true}'],
+        ];
     }
 }

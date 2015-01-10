@@ -45,16 +45,16 @@ class PeopleTest extends \PHPUnit_Framework_TestCase {
 
 
     public function providerForTestJsonSerialize() {
-        $data = array();
+        $data = [];
 
         $people = new People();
         $people->setId(4);
         $people->setFirstName("Harry");
         $people->setLastName("Vancouvan");
-        $data[] = array(
+        $data[] = [
             $people,
             '{"id":4,"firstname":"Harry","lastname":"Vancouvan"}'
-        );
+        ];
 
         return $data;
     }

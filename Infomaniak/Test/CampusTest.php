@@ -117,12 +117,12 @@ class CampusTest extends \PHPUnit_Framework_TestCase {
 
 
     public function providerForIsEquals() {
-        return array(
-            array("Montpellier", "Hérault", "Montpellier", "Hérault", true),
-            array("Montpellier", "Hérault", "Béziers", "Hérault", false),
-            array("Montpellier", "Hérault", "Montpellier", "Gard", false),
-            array("Montpellier", "Hérault", "Béziers", "Gard", false),
-        );
+        return [
+            ["Montpellier", "Hérault", "Montpellier", "Hérault", true],
+            ["Montpellier", "Hérault", "Béziers", "Hérault", false],
+            ["Montpellier", "Hérault", "Montpellier", "Gard", false],
+            ["Montpellier", "Hérault", "Béziers", "Gard", false],
+        ];
     }
 
 

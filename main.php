@@ -10,7 +10,7 @@ $campus->setRegion("Hérault");
 
 
 echo "Création des étudiants\n";
-$studentsToAdd = array();
+$studentsToAdd = [];
 
 $student1 = new Infomaniak\Student();
 $student1->setId(1);
@@ -72,7 +72,7 @@ foreach ($students2 as $student) {
 
 
 echo "Création des professeurs\n";
-$teachersToAdd = array();
+$teachersToAdd = [];
 
 $teacher1 = new Infomaniak\ExternalTeacher();
 $teacher1->setId(1);
